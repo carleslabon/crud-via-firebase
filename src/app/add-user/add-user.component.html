@@ -1,0 +1,26 @@
+<div class="p5">
+    <h3 *ngIf="!editMode">Add user:</h3>
+    <h3 *ngIf="editMode">Edit user:</h3><hr>
+    <form [formGroup]="this.usersService.form" (ngSubmit)="onSubmit()">
+        <div class="form-group"> 
+            <input type="hidden" formControlName="$key">
+            <input type="text" class="form-control m-1" placeholder="Name" formControlName="name">
+            <small class="text-danger d-block"
+                   *ngIf="this.usersService.form.get('name').invalid && this.usersService.form.get('name').touched">
+                Please input a valid name.
+            </small>
+            <br><input type="email" class="form-control m-1" placeholder="E-mail" formControlName="email">
+            <small class="text-danger d-block"
+                   *ngIf="this.usersService.form.get('email').invalid && this.usersService.form.get('email').touched">
+                Please input a valid e-mail.
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="!this.usersService.form.valid">
+            {{ editMode ? 'Edit' : 'Add' }}
+        </button>
+    </form><br>
+    <div class="alert alert-success fade in" *ngIf="success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+            User added successfully.
+    </div>
+</div>
